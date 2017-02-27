@@ -1,0 +1,24 @@
+<div class="container">
+
+<div class="page-header">
+  <p class="text-right"> <a href='/logout'>Logout</a> </p>
+  <p class="text-left"> <a href='/back'>Bright Ideas</a> </p>
+</div>
+
+ <div class="page-header">
+
+ <h3> <%=@post.user.alias%> says: <%= @post.content%></h3>
+<h2> People who liked this post: </h2>
+  <% @users_liked_post.each do |user| %>
+
+  <h3> <%=user.user.name%> </h3>
+
+  <%end%>
+
+</div>
+
+
+
+
+
+ </div>

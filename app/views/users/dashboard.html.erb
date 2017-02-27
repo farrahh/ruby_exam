@@ -1,0 +1,35 @@
+<div class="container">
+
+<div class="page-header">
+  <p class="text-right"> <a href='/logout'>Logout</a> </p>
+</div>
+
+<h1> Hello, <%= @user.name%></h1>
+
+<form action='/post_create' method='post'>
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<div class="form-group">
+  <label for="">Add an Idea:</label>
+  <input type="text" class="form-control" id="content" name="content" style="width: 400px">
+</div>
+<button type="submit" class="btn btn-default">Idea!</button>
+</form>
+
+<div class="row">
+    <h3>Other Ideas:</h3>
+    <% @posts.each do |post| %>
+    <h4> <%= post.user.alias%>  says:<%=post.content %> </h4>
+    <p> Number of likes: <a href="/post/<%=post.id%>"> <%=post.likes.count%> People liked this post</a></p>
+    <% if @user.id == post.user.id%>
+      <a href="/create_like/<%=post.id%>" data-method="post"><button type="submit" id="like_button" class="btn btn-primary">Like</button></a>
+      <a href="/destroy/dashboard/<%=post.id%>" data-method="post"><button type="submit" class="btn btn-danger">Delete</button></a>
+      <a href="/users/<%=post.user.id%>" data-method="post"><button type="submit" class="btn btn-default">User Info</button></a>
+
+      <% end %>
+      <% if @user.id != post.user.id%>
+        <a href="/create_like/<%=post.id%>" data-method="post"><button type="submit" id="like_button" class="btn btn-primary">Like</button></a>
+        <a href="/users/<%=post.id%>" data-method="post"><button type="submit" class="btn btn-default">User Info</button></a>
+
+      <% end %>
+
+<% end %>
